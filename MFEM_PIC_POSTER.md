@@ -100,8 +100,9 @@ Rushan Zhang<sup>1</sup> <span class="small-text">(rzhangbq@gatech.edu)</span>, 
 
 ### Highlights
 - Electrostatic **PIC** on MFEM particle tracing: particles deposit charge, the mesh field pushes them back
-- Compatible gradient $\mathrm{CG}\xrightarrow{\nabla_h}\mathrm{ND}$ and **OrthoSolver** for periodic Poisson
-- **Biharmonic-heat** shape function: a mesh-compatible low-pass filter applied by solving $u_t+\kappa\Delta^2 u=0$
+- **Symplectic preserving** (de Rham complex + leapfrog)
+- **Parallel scalable** with MPI
+- **Biharmonic-heat** shape function suppressing grid heating
 
 ---
 
