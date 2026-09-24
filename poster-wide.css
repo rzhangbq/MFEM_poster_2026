@@ -1,7 +1,8 @@
 /* @theme poster-wide */
 @import 'default';
 
+/* 18 in × 24 in portrait (3:4) */
 section {
-  width: 1920px;
-  height: 1280px;
+  width: 1800px;
+  height: 2400px;
 }

@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Export the 2-page 16:9 poster and the single 3:2 wide poster.
+# Export MFEM_PIC_POSTER.md (18x24 portrait) to HTML and PDF.
 # Usage: ./export_marp.sh
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
+SRC="$ROOT/MFEM_PIC_POSTER.md"
 
 if command -v marp >/dev/null 2>&1; then
   marp_cmd=(marp)
@@ -13,17 +14,10 @@ fi
 
 common=(--html --allow-local-files --theme-set "$ROOT/poster-wide.css")
 
-export_one() {
-  local src="$1"
-  local stem
-  stem="$(basename "${src%.md}")"
-  echo "HTML: $ROOT/${stem}.html"
-  "${marp_cmd[@]}" "${common[@]}" "$src" -o "$ROOT/${stem}.html"
-  echo "PDF:  $ROOT/${stem}.pdf"
-  "${marp_cmd[@]}" "${common[@]}" --pdf --pdf-outlines "$src" -o "$ROOT/${stem}.pdf"
-}
+echo "HTML: $ROOT/MFEM_PIC_POSTER.html"
+"${marp_cmd[@]}" "${common[@]}" "$SRC" -o "$ROOT/MFEM_PIC_POSTER.html"
 
-export_one "$ROOT/MFEM_PIC_POSTER.md"
-export_one "$ROOT/MFEM_PIC_POSTER_WIDE.md"
+echo "PDF:  $ROOT/MFEM_PIC_POSTER.pdf"
+"${marp_cmd[@]}" "${common[@]}" --pdf --pdf-outlines "$SRC" -o "$ROOT/MFEM_PIC_POSTER.pdf"
 
 echo "Done."
