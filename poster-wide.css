@@ -1,0 +1,7 @@
+/* @theme poster-wide */
+@import 'default';
+
+section {
+  width: 1920px;
+  height: 1280px;
+}

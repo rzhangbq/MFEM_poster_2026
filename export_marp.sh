@@ -1,17 +1,9 @@
 #!/usr/bin/env bash
-# Export MFEM_PIC_POSTER.md to HTML and PDF.
+# Export the 2-page 16:9 poster and the single 3:2 wide poster.
 # Usage: ./export_marp.sh
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
-SRC="$ROOT/MFEM_PIC_POSTER.md"
-HTML="$ROOT/MFEM_PIC_POSTER.html"
-PDF="$ROOT/MFEM_PIC_POSTER.pdf"
-
-if [[ ! -f "$SRC" ]]; then
-  echo "error: missing $SRC" >&2
-  exit 1
-fi
 
 if command -v marp >/dev/null 2>&1; then
   marp_cmd=(marp)
@@ -19,12 +11,19 @@ else
   marp_cmd=(npx --yes @marp-team/marp-cli)
 fi
 
-common=(--html --allow-local-files)
+common=(--html --allow-local-files --theme-set "$ROOT/poster-wide.css")
 
-echo "HTML: $HTML"
-"${marp_cmd[@]}" "${common[@]}" "$SRC" -o "$HTML"
+export_one() {
+  local src="$1"
+  local stem
+  stem="$(basename "${src%.md}")"
+  echo "HTML: $ROOT/${stem}.html"
+  "${marp_cmd[@]}" "${common[@]}" "$src" -o "$ROOT/${stem}.html"
+  echo "PDF:  $ROOT/${stem}.pdf"
+  "${marp_cmd[@]}" "${common[@]}" --pdf --pdf-outlines "$src" -o "$ROOT/${stem}.pdf"
+}
 
-echo "PDF:  $PDF"
-"${marp_cmd[@]}" "${common[@]}" --pdf --pdf-outlines "$SRC" -o "$PDF"
+export_one "$ROOT/MFEM_PIC_POSTER.md"
+export_one "$ROOT/MFEM_PIC_POSTER_WIDE.md"
 
 echo "Done."

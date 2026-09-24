@@ -99,7 +99,7 @@ Rushan Zhang<sup>1</sup> <span class="small-text">(rzhangbq@gatech.edu)</span>, 
 </div>
 
 ### Highlights
-- Electrostatic **PIC** on MFEM particle tracing: particles deposit charge, the mesh field pushes them back
+- Electrostatic PIC in **MFEM** with support for **unstructured** meshes
 - **Symplectic preserving** (de Rham complex + leapfrog)
 - **Parallel scalable** with MPI
 - **Biharmonic-heat** shape function suppressing grid heating
@@ -161,11 +161,11 @@ The shape function is the biharmonic heat kernel at time $\tau$:
 
 $$s_{\mathbf{x}}(\mathbf{x})=E(\mathbf{x},\tau),\qquad \hat{E}(\mathbf{k},\tau)=e^{-\kappa(2\pi/L)^4\|\mathbf{k}\|^4\tau}.$$
 
-Applying $s_{\mathbf{x}}$ is equivalent to convolving the Dirac charge (and the potential) with that kernel:
+Applying $s_{\mathbf{x}}$ is equivalent to convolving the Dirac charge and the potential with that kernel:
 
 <div class="equation-box">
 
-$$\rho=s_{\mathbf{x}}*\rho_\delta,\qquad \phi_s=s_{\mathbf{x}}*\phi,\qquad \mathbf{E}_p=-\nabla\phi_s(\mathbf{x}_p).$$
+$$\rho=s_{\mathbf{x}}*\rho_\delta,\quad\epsilon_0\Delta\phi = \rho,\quad \phi_s=s_{\mathbf{x}}*\phi,\quad  \mathbf{E}_p=-\nabla\phi_s(\mathbf{x}_p).$$
 
 </div>
 

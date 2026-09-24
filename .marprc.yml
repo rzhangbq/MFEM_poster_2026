@@ -1,0 +1,3 @@
+themeSet: ./poster-wide.css
+html: true
+allowLocalFiles: true
